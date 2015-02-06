@@ -51,10 +51,6 @@ namespace ForecastMap
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += navigationHelper_LoadState;
             this.navigationHelper.SaveState += navigationHelper_SaveState;
-
-            // test code
-            ObservableCollection<pref_infoPref> prefs = new ObservableCollection<pref_infoPref>();
-            var prefsInfo = Logic.PrefectureInfoLoader.getPrefInfo();
         }
 
         /// <summary>
@@ -110,5 +106,12 @@ namespace ForecastMap
         }
 
         #endregion
+
+        private void prefsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            pref_infoPref pref = (pref_infoPref)prefsComboBox.SelectedItem;
+            ObservableCollection<pref_infoPrefArea> areas = new ObservableCollection<pref_infoPrefArea>(pref.area);
+            areasComboBox.DataContext = areas;
+        }
     }
 }
