@@ -22,7 +22,7 @@ namespace ForecastMap
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class WeatherForecast : Page
+    public sealed partial class FavoritesList : Page
     {
 
         private NavigationHelper navigationHelper;
@@ -46,7 +46,7 @@ namespace ForecastMap
         }
 
 
-        public WeatherForecast()
+        public FavoritesList()
         {
             this.InitializeComponent();
             this.navigationHelper = new NavigationHelper(this);

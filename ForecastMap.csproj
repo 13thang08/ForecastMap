@@ -103,7 +103,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Page Include="WeatherForecast.xaml">
+    <Page Include="FavoritesList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -119,8 +119,8 @@
     <Compile Include="DataModel\PrefsInfo.cs" />
     <Compile Include="Logic\PrefsInfoLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WeatherForecast.xaml.cs">
-      <DependentUpon>WeatherForecast.xaml</DependentUpon>
+    <Compile Include="FavoritesList.xaml.cs">
+      <DependentUpon>FavoritesList.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
