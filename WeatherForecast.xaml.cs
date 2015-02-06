@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
+using ForecastMap.DataModel;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
 namespace ForecastMap
@@ -67,8 +68,11 @@ namespace ForecastMap
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             // test code
-            var prefsInfo = await Logic.PrefectureInfoLoader.getPrefInfo();
-            ObservableCollection<pref_infoPref> prefs = new ObservableCollection<pref_infoPref>(prefsInfo.pref);
+            //var prefsInfo = await Logic.PrefectureInfoLoader.getPrefInfo();
+            //ObservableCollection<pref_infoPref> prefs = new ObservableCollection<pref_infoPref>(prefsInfo.pref);
+            //prefsComboBox.DataContext = prefs;
+            var prefsInfo = await Logic.PrefsInfoLoader.getPrefsInfo();
+            ObservableCollection<Pref> prefs = new ObservableCollection<Pref>(prefsInfo.Prefs);
             prefsComboBox.DataContext = prefs;
         }
 
@@ -109,8 +113,12 @@ namespace ForecastMap
 
         private void prefsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            pref_infoPref pref = (pref_infoPref)prefsComboBox.SelectedItem;
-            ObservableCollection<pref_infoPrefArea> areas = new ObservableCollection<pref_infoPrefArea>(pref.area);
+            //pref_infoPref pref = (pref_infoPref)prefsComboBox.SelectedItem;
+            //ObservableCollection<pref_infoPrefArea> areas = new ObservableCollection<pref_infoPrefArea>(pref.area);
+            //areasComboBox.DataContext = areas;
+
+            Pref pref = (Pref)prefsComboBox.SelectedItem;
+            ObservableCollection<Area> areas = new ObservableCollection<Area>(pref.Areas);
             areasComboBox.DataContext = areas;
         }
     }
