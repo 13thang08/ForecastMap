@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ForecastMap.DataModels;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -74,10 +75,36 @@ namespace ForecastMap
                 // データベースを生成する
                 using (var db = new SQLite.SQLiteConnection(DBName))
                 {
-                    db.CreateTable<DataModels.Area>();
-                    db.CreateTable<DataModels.Forecast>();
+                    //db.CreateTable<DataModels.FavoritesAreas>();
+                    //db.CreateTable<DataModels.Forecast>();
 
-                    Logics.DataUpdater.updateData(1801);
+                    //Logics.DataLogics.addFavorite(1801);
+                    //Logics.DataLogics.addFavorite(1701);
+                    //Logics.DataLogics.addFavorite(1601);
+                    //Logics.DataLogics.addFavorite(1501);
+                    //Logics.DataLogics.addFavorite(1401);
+                    //Logics.DataLogics.addFavorite(1400);
+                    //Logics.DataLogics.addFavorite(1301);
+                    //Logics.DataLogics.addFavorite(1201);
+                    var items = FavoritesAreasView.getFavoriteAreasView();
+
+                    foreach (var item in items)
+                    {
+                        Debug.WriteLine(item.AreaId);
+                        Debug.WriteLine(item.Name);
+                    }
+
+                    var records = ForecastView.getForecastViewItems(1801);
+
+                    foreach (var record in records)
+                    {
+                        Debug.WriteLine(record.Name);
+                        Debug.WriteLine(record.DateForecast);
+                        Debug.WriteLine(record.ForecastInfo);
+                        Debug.WriteLine("" + record.MaxTemp + " " + record.MinTemp);
+                        Debug.WriteLine(record.ChangeOfRain);
+                    }
+
                 }
 
                 // Place the frame in the current Window

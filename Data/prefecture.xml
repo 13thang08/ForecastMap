@@ -6,13 +6,13 @@
       <PrefName>栃木県</PrefName>
       <Areas>
         <Area>
-          <AreaId>901</AreaId>
+          <AreaId>900</AreaId>
           <AreaName>北部</AreaName>
           <Longitude>139.9956</Longitude>
           <Latitude>36.9180</Latitude>
         </Area>
         <Area>
-          <AreaId>902</AreaId>
+          <AreaId>901</AreaId>
           <AreaName>南部</AreaName>
           <Longitude>139.8637</Longitude>
           <Latitude>36.5835</Latitude>
@@ -24,13 +24,13 @@
       <PrefName>群馬県</PrefName>
       <Areas>
         <Area>
-          <AreaId>1001</AreaId>
+          <AreaId>1000</AreaId>
           <AreaName>北部</AreaName>
           <Longitude>139.0398</Longitude>
           <Latitude>36.8477</Latitude>
         </Area>
         <Area>
-          <AreaId>1002</AreaId>
+          <AreaId>1001</AreaId>
           <AreaName>南部</AreaName>
           <Longitude>139.1386</Longitude>
           <Latitude>36.3891</Latitude>
@@ -42,13 +42,13 @@
       <PrefName>埼玉県</PrefName>
       <Areas>
         <Area>
-          <AreaId>1101</AreaId>
+          <AreaId>1100</AreaId>
           <AreaName>北部</AreaName>
           <Longitude>139.3474</Longitude>
           <Latitude>36.1500</Latitude>
         </Area>
         <Area>
-          <AreaId>1102</AreaId>
+          <AreaId>1101</AreaId>
           <AreaName>南部</AreaName>
           <Longitude>139.5122</Longitude>
           <Latitude>35.9457</Latitude>
@@ -60,13 +60,13 @@
       <PrefName>千葉県</PrefName>
       <Areas>
         <Area>
-          <AreaId>1201</AreaId>
+          <AreaId>1200</AreaId>
           <AreaName>北東部</AreaName>
           <Longitude>140.6877</Longitude>
           <Latitude>35.7765</Latitude>
         </Area>
         <Area>
-          <AreaId>1202</AreaId>
+          <AreaId>1201</AreaId>
           <AreaName>北西部</AreaName>
           <Longitude>140.1494</Longitude>
           <Latitude>35.6248</Latitude>
@@ -78,25 +78,25 @@
       <PrefName>東京都</PrefName>
       <Areas>
         <Area>
-          <AreaId>1301</AreaId>
+          <AreaId>1300</AreaId>
           <AreaName>伊豆諸島北部</AreaName>
           <Longitude>139.3803</Longitude>
           <Latitude>34.7358</Latitude>
         </Area>
         <Area>
-          <AreaId>1302</AreaId>
+          <AreaId>1301</AreaId>
           <AreaName>伊豆諸島南部</AreaName>
           <Longitude>139.8418</Longitude>
           <Latitude>33.2419</Latitude>
         </Area>
         <Area>
-          <AreaId>1303</AreaId>
+          <AreaId>1302</AreaId>
           <AreaName>小笠原諸島</AreaName>
           <Longitude>142.2208</Longitude>
           <Latitude>27.0714</Latitude>
         </Area>
         <Area>
-          <AreaId>1304</AreaId>
+          <AreaId>1303</AreaId>
           <AreaName>東京地方</AreaName>
           <Longitude>139.7498</Longitude>
           <Latitude>35.6862</Latitude>
@@ -108,13 +108,13 @@
       <PrefName>神奈川県</PrefName>
       <Areas>
         <Area>
-          <AreaId>1401</AreaId>
+          <AreaId>1400</AreaId>
           <AreaName>東部</AreaName>
           <Longitude>139.5479</Longitude>
           <Latitude>35.5142</Latitude>
         </Area>
         <Area>
-          <AreaId>1402</AreaId>
+          <AreaId>1401</AreaId>
           <AreaName>西部</AreaName>
           <Longitude>139.1716</Longitude>
           <Latitude>35.3654</Latitude>
@@ -126,13 +126,13 @@
       <PrefName>新潟県</PrefName>
       <Areas>
         <Area>
-          <AreaId>1501</AreaId>
+          <AreaId>1500</AreaId>
           <AreaName>上越</AreaName>
           <Longitude>138.2210</Longitude>
           <Latitude>37.1395</Latitude>
         </Area>
         <Area>
-          <AreaId>1502</AreaId>
+          <AreaId>1501</AreaId>
           <AreaName>下越</AreaName>
           <Longitude>139.2925</Longitude>
           <Latitude>37.9561</Latitude>
@@ -144,13 +144,13 @@
       <PrefName>富山県</PrefName>
       <Areas>
         <Area>
-          <AreaId>1601</AreaId>
+          <AreaId>1600</AreaId>
           <AreaName>東部</AreaName>
           <Longitude>137.2270</Longitude>
           <Latitude>36.7157</Latitude>
         </Area>
         <Area>
-          <AreaId>1602</AreaId>
+          <AreaId>1601</AreaId>
           <AreaName>西部</AreaName>
           <Longitude>137.0293</Longitude>
           <Latitude>36.7949</Latitude>
@@ -162,13 +162,13 @@
       <PrefName>石川県</PrefName>
       <Areas>
         <Area>
-          <AreaId>1701</AreaId>
+          <AreaId>1700</AreaId>
           <AreaName>加賀</AreaName>
           <Longitude>136.6667</Longitude>
           <Latitude>36.3538</Latitude>
         </Area>
         <Area>
-          <AreaId>1702</AreaId>
+          <AreaId>1701</AreaId>
           <AreaName>能登</AreaName>
           <Longitude>137.0952</Longitude>
           <Latitude>37.4868</Latitude>
@@ -180,13 +180,13 @@
       <PrefName>福井</PrefName>
       <Areas>
         <Area>
-          <AreaId>1801</AreaId>
+          <AreaId>1800</AreaId>
           <AreaName>嶺北</AreaName>
           <Longitude>136.1504</Longitude>
           <Latitude>36.0612</Latitude>
         </Area>
         <Area>
-          <AreaId>1802</AreaId>
+          <AreaId>1801</AreaId>
           <AreaName>嶺南</AreaName>
           <Longitude>136.0954</Longitude>
           <Latitude>35.6159</Latitude>

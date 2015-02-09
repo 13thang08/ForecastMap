@@ -117,11 +117,12 @@
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="DataModels\FavoritesAreas.cs" />
+    <Compile Include="DataModels\FavoritesAreasView.cs" />
     <Compile Include="DataModels\Forecast.cs" />
     <Compile Include="DataModels\ForecastView.cs" />
     <Compile Include="DataModels\PrefsInfo.cs" />
     <Compile Include="DataModels\WeatherForecast.cs" />
-    <Compile Include="Logics\DataUpdater.cs" />
+    <Compile Include="Logics\DataLogics.cs" />
     <Compile Include="Logics\PrefsInfoLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FavoritesList.xaml.cs">

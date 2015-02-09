@@ -14,10 +14,10 @@ using Windows.Storage.Streams;
 
 namespace ForecastMap.Logics
 {
-    class DataUpdater
+    class DataLogics
     {
-        public static string forecastUrl = "http://localhost:8080/WeatherService/";
-        public static async void updateData(int areaId)
+        public static string forecastUrl = "http://www.drk7.jp/weather/xml/";
+        public static async Task<bool> updateForecastData(int areaId)
         {
             int prefId = areaId / 100;
             int areaIndex = areaId % 100;
@@ -69,13 +69,102 @@ namespace ForecastMap.Logics
                     }
                     catch
                     {
-                        return;
+                        Debug.WriteLine("Can't update data");
+                        return false;
                     }
                 }
             }
 
+            return true;
         }
 
+        public static async Task<bool> addFavorite(int areaId)
+        {
+            int prefId = areaId / 100;
+            int areaIndex = areaId % 100;
+            string URL = forecastUrl + prefId + ".xml";
+            weatherforecast forecastInfoByPref = await LoadAsync(URL);
+
+            weatherforecastPrefAreaInfo[] areaForecastByDate = forecastInfoByPref.pref.area[areaIndex].info;
+
+            FavoritesAreas favoriteArea = new FavoritesAreas();
+            favoriteArea.AreaId = areaId;
+            favoriteArea.PrefectureName = forecastInfoByPref.pref.id;
+            favoriteArea.AreaName = forecastInfoByPref.pref.area[areaIndex].id;
+            favoriteArea.Longitude = (float) forecastInfoByPref.pref.area[areaIndex].geo.@long;
+            favoriteArea.Latitude = (float) forecastInfoByPref.pref.area[areaIndex].geo.lat;
+            favoriteArea.DisplayFlag = false;
+
+            using (var db = new SQLite.SQLiteConnection(App.DBName))
+            {
+                bool ret = false;
+                try
+                {
+                    db.Insert(favoriteArea);
+                    ret = await updateForecastData(areaId);
+                }
+                catch
+                {
+                    Debug.WriteLine("Can't add favorite");
+                    return false;
+                }
+
+                return ret;
+            }
+
+        }
+
+        public static FavoritesAreas getFavoriteArea(int areaId)
+        {
+            using (var db = new SQLite.SQLiteConnection(App.DBName))
+            {
+                try
+                {
+                    var record = db.Table<FavoritesAreas>().Where(c => (c.AreaId == areaId)).SingleOrDefault();
+                    return record;
+                }
+                catch
+                {
+                    Debug.WriteLine("Can't retrieve favorite area");
+                    return null;
+                }
+            }
+        }
+
+        public static List<Forecast> getForecastFromDb(int areaId)
+        {
+            using (var db = new SQLite.SQLiteConnection(App.DBName))
+            {
+                try
+                {
+                    var records = db.Table<Forecast>().Where(c => (c.AreaId == areaId)).ToList();
+                    return records;
+                }
+                catch
+                {
+                    Debug.WriteLine("Can't retrieve data");
+                    return null;
+                }
+            }
+        }
+
+        public static List<FavoritesAreas> getFavoriteAreas()
+        {
+            using (var db = new SQLite.SQLiteConnection(App.DBName))
+            {
+                try
+                {
+                    var records = db.Table<FavoritesAreas>().ToList();
+                    return records;
+                }
+                catch
+                {
+                    Debug.WriteLine("Can't retrieve favorite area");
+                    return null;
+                }
+            }
+        }
+        
         /// <summary>
         /// 天気情報データを取得するメソッド
         /// </summary>

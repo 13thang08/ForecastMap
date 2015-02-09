@@ -14,7 +14,7 @@ namespace ForecastMap.DataModels
         public string AreaName { get; set; }
 
         public int PrefectureId { get; set; }
-        public int PrefectureName { get; set; }
+        public string PrefectureName { get; set; }
 
         public float Longitude { get; set; }
         public float Latitude { get; set; }
