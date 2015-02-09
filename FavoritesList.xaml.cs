@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
-using ForecastMap.DataModel;
+using ForecastMap.DataModels;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
 namespace ForecastMap
@@ -71,7 +71,7 @@ namespace ForecastMap
             //var prefsInfo = await Logic.PrefectureInfoLoader.getPrefInfo();
             //ObservableCollection<pref_infoPref> prefs = new ObservableCollection<pref_infoPref>(prefsInfo.pref);
             //prefsComboBox.DataContext = prefs;
-            var prefsInfo = await Logic.PrefsInfoLoader.getPrefsInfo();
+            var prefsInfo = await Logics.PrefsInfoLoader.getPrefsInfo();
             ObservableCollection<Pref> prefs = new ObservableCollection<Pref>(prefsInfo.Prefs);
             prefsComboBox.DataContext = prefs;
         }

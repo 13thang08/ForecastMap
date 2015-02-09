@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ForecastMap.DataModel;
+using ForecastMap.DataModels;
 using System.Xml.Serialization;
 using System.IO;
 
-namespace ForecastMap.Logic
+namespace ForecastMap.Logics
 {
     class PrefsInfoLoader
     {

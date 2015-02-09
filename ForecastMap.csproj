@@ -116,18 +116,27 @@
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="DataModel\PrefsInfo.cs" />
-    <Compile Include="Logic\PrefsInfoLoader.cs" />
+    <Compile Include="DataModels\FavoritesAreas.cs" />
+    <Compile Include="DataModels\Forecast.cs" />
+    <Compile Include="DataModels\ForecastView.cs" />
+    <Compile Include="DataModels\PrefsInfo.cs" />
+    <Compile Include="DataModels\WeatherForecast.cs" />
+    <Compile Include="Logics\DataUpdater.cs" />
+    <Compile Include="Logics\PrefsInfoLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FavoritesList.xaml.cs">
       <DependentUpon>FavoritesList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SQLite.cs" />
+    <Compile Include="SQLiteAsync.cs" />
+    <Compile Include="ViewModels\ForecastItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="ForecastMap_TemporaryKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />
@@ -143,6 +152,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.VCLibs, version=12.0">
+      <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
+    </SDKReference>
+    <SDKReference Include="SQLite.WinRT81, Version=3.8.7.4">
+      <Name>SQLite for Windows Runtime %28Windows 8.1%29</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
