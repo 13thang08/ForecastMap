@@ -12,6 +12,8 @@ namespace ForecastMap.DataModels
 
         public int AreaId { get; set; }
 
+        public bool DisplayFlag { get; set; }
+
         public static List<FavoritesAreasView> getFavoriteAreasView()
         {
             List<FavoritesAreas> favoriteAreas = Logics.DataLogics.getFavoriteAreas();
@@ -21,9 +23,22 @@ namespace ForecastMap.DataModels
                 FavoritesAreasView itemView = new FavoritesAreasView();
                 itemView.Name = item.PrefectureName + "-" + item.AreaName;
                 itemView.AreaId = item.AreaId;
+                itemView.DisplayFlag = item.DisplayFlag;
                 favoriteAreasViewItems.Add(itemView);
             }
             return favoriteAreasViewItems;
+        }
+
+        public static bool deleteFavoriteArea(int areaId)
+        {
+            return Logics.DataLogics.deleteFavoriteArea(areaId);
+        }
+
+        public static bool updateFavoriteArea(FavoritesAreasView favoriteAreaView)
+        {
+            FavoritesAreas favoriteArea = Logics.DataLogics.getFavoriteArea(favoriteAreaView.AreaId);
+            favoriteArea.DisplayFlag = favoriteAreaView.DisplayFlag;
+            return Logics.DataLogics.updateFavoriteArea(favoriteArea);
         }
     }
 }

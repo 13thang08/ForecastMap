@@ -164,6 +164,42 @@ namespace ForecastMap.Logics
                 }
             }
         }
+
+        public static bool updateFavoriteArea(FavoritesAreas favoriteArea)
+        {
+            using (var db = new SQLite.SQLiteConnection(App.DBName))
+            {
+                try
+                {
+                    db.Update(favoriteArea);
+                    return true;
+                }
+                catch
+                {
+                    Debug.WriteLine("Can't update favorite area");
+                    return false;
+                }
+            }
+        }
+
+        public static bool deleteFavoriteArea(int areaId)
+        {
+            FavoritesAreas favoriteArea = new FavoritesAreas();
+            favoriteArea.AreaId = areaId;
+
+            using (var db = new SQLite.SQLiteConnection(App.DBName))
+            {
+                try
+                {
+                    db.Delete(favoriteArea);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
         
         /// <summary>
         /// 天気情報データを取得するメソッド

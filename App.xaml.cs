@@ -105,6 +105,11 @@ namespace ForecastMap
                         Debug.WriteLine(record.ChangeOfRain);
                     }
 
+                    FavoritesAreasView.deleteFavoriteArea(1201);
+                    FavoritesAreasView favoriteAreasView = new FavoritesAreasView();
+                    favoriteAreasView.AreaId = 1601;
+                    favoriteAreasView.DisplayFlag = true;
+                    FavoritesAreasView.updateFavoriteArea(favoriteAreasView);
                 }
 
                 // Place the frame in the current Window
