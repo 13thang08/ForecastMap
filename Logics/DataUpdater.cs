@@ -36,9 +36,9 @@ namespace ForecastMap.Logics
                 var imageUrl = new Uri(item.img);
                 var httpClient = new HttpClient();
                 var response = await httpClient.GetAsync(imageUrl);
-                var result = await response.Content.ReadAsBufferAsync();
-                DataReader dataReader = DataReader.FromBuffer(result);
-                byte[] bytes = new byte[result.Length];
+                var buffer = await response.Content.ReadAsBufferAsync();
+                DataReader dataReader = DataReader.FromBuffer(buffer);
+                byte[] bytes = new byte[buffer.Length];
                 dataReader.ReadBytes(bytes);
                 forecast.ForecastImage = bytes;
 
@@ -51,15 +51,26 @@ namespace ForecastMap.Logics
                 forecast.ChangeOfRain4 = item.rainfallchance.period[3].Value;
 
                 // update to database
-                var con = new SQLite.SQLiteAsyncConnection(App.DBName);
-                try
+                using (var db = new SQLite.SQLiteConnection(App.DBName))
                 {
-                    await con.InsertAsync(forecast);
-                }
-                catch
-                {
-                    Debug.WriteLine("Can't insert data");
-                    return;
+                    try
+                    {
+                        var existingRecord = (db.Table<Forecast>().Where(c => (c.AreaId == forecast.AreaId && c.DateForecast == forecast.DateForecast))).SingleOrDefault();
+
+                        if (existingRecord != null)
+                        {
+                            forecast.RecordId = existingRecord.RecordId;
+                            db.Update(forecast);
+                        }
+                        else
+                        {
+                            db.Insert(forecast);
+                        }
+                    }
+                    catch
+                    {
+                        return;
+                    }
                 }
             }
 
