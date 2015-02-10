@@ -73,45 +73,45 @@ namespace ForecastMap
                 }
 
                 // データベースを生成する
-                using (var db = new SQLite.SQLiteConnection(DBName))
-                {
-                    //db.CreateTable<DataModels.FavoritesAreas>();
-                    //db.CreateTable<DataModels.Forecast>();
+                //using (var db = new SQLite.SQLiteConnection(DBName))
+                //{
+                //    db.CreateTable<DataModels.FavoritesAreas>();
+                //    db.CreateTable<DataModels.Forecast>();
 
-                    //Logics.DataLogics.addFavorite(1801);
-                    //Logics.DataLogics.addFavorite(1701);
-                    //Logics.DataLogics.addFavorite(1601);
-                    //Logics.DataLogics.addFavorite(1501);
-                    //Logics.DataLogics.addFavorite(1401);
-                    //Logics.DataLogics.addFavorite(1400);
-                    //Logics.DataLogics.addFavorite(1301);
-                    //Logics.DataLogics.addFavorite(1201);
-                    var items = FavoritesAreasView.getFavoriteAreasView();
+                //    Logics.DataLogics.addFavorite(1801);
+                //    Logics.DataLogics.addFavorite(1701);
+                //    Logics.DataLogics.addFavorite(1601);
+                //    Logics.DataLogics.addFavorite(1501);
+                //    Logics.DataLogics.addFavorite(1401);
+                //    Logics.DataLogics.addFavorite(1400);
+                //    Logics.DataLogics.addFavorite(1301);
+                //    Logics.DataLogics.addFavorite(1201);
+                //    var items = FavoritesAreasView.getFavoriteAreasView();
 
-                    foreach (var item in items)
-                    {
-                        Debug.WriteLine(item.AreaId);
-                        Debug.WriteLine(item.Name);
-                    }
+                //    foreach (var item in items)
+                //    {
+                //        Debug.WriteLine(item.AreaId);
+                //        Debug.WriteLine(item.Name);
+                //    }
 
-                    var records = ForecastView.getForecastViewItems(1801);
+                //    var records = ForecastView.getForecastViewItems(1801);
 
-                    foreach (var record in records)
-                    {
-                        Debug.WriteLine(record.Name);
-                        Debug.WriteLine(record.DateForecast);
-                        Debug.WriteLine(record.ForecastInfo);
-                        Debug.WriteLine("" + record.MaxTemp + " " + record.MinTemp);
-                        Debug.WriteLine(record.ChangeOfRain);
-                    }
+                //    foreach (var record in records)
+                //    {
+                //        Debug.WriteLine(record.Name);
+                //        Debug.WriteLine(record.DateForecast);
+                //        Debug.WriteLine(record.ForecastInfo);
+                //        Debug.WriteLine("" + record.MaxTemp + " " + record.MinTemp);
+                //        Debug.WriteLine(record.ChangeOfRain);
+                //    }
 
-                    FavoritesAreasView.deleteFavoriteArea(1301);
-                    FavoritesAreasView favoriteAreasView = new FavoritesAreasView();
-                    favoriteAreasView.AreaId = 1601;
-                    favoriteAreasView.DisplayFlag = true;
-                    FavoritesAreasView.updateFavoriteArea(favoriteAreasView);
-                    await Logics.DataLogics.updateForecastData(1801);
-                }
+                //    FavoritesAreasView.deleteFavoriteArea(1301);
+                //    FavoritesAreasView favoriteAreasView = new FavoritesAreasView();
+                //    favoriteAreasView.AreaId = 1601;
+                //    favoriteAreasView.DisplayFlag = true;
+                //    FavoritesAreasView.updateFavoriteArea(favoriteAreasView);
+                //    await Logics.DataLogics.updateForecastData(1801);
+                //}
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;

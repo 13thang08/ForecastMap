@@ -37,8 +37,16 @@ namespace ForecastMap.DataModels
         public static bool updateFavoriteArea(FavoritesAreasView favoriteAreaView)
         {
             FavoritesAreas favoriteArea = Logics.DataLogics.getFavoriteArea(favoriteAreaView.AreaId);
-            favoriteArea.DisplayFlag = favoriteAreaView.DisplayFlag;
-            return Logics.DataLogics.updateFavoriteArea(favoriteArea);
+            if (favoriteArea != null)
+            {
+                favoriteArea.DisplayFlag = favoriteAreaView.DisplayFlag;
+                return Logics.DataLogics.updateFavoriteArea(favoriteArea);
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }

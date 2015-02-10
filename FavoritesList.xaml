@@ -12,7 +12,9 @@
 
     <Page.Resources>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">My Application</x:String>
+        <x:String x:Key="AppName">お気に入り</x:String>
+        <x:String x:Key="deleteFavoriteAreaButton">削除</x:String>
+        <x:String x:Key="addFavoriteAreaButton">追加</x:String>
     </Page.Resources>
 
     <!--
@@ -46,21 +48,42 @@
             <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
                         IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
         </Grid>
-        <StackPanel Grid.Row="1" Width="400">
-            <ComboBox x:Name="prefsComboBox" ItemsSource="{Binding}" SelectionChanged="prefsComboBox_SelectionChanged">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding PrefName}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <ComboBox x:Name="areasComboBox" ItemsSource="{Binding}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding AreaName}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="750" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Height="500" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <ListView x:Name="favoriteAreaListView" ItemsSource="{Binding}" Margin="100,0,0,0" VerticalAlignment="Top">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="{Binding Name}" Height="70" Width="400" FontSize="25"></Button>
+                                <CheckBox IsChecked="{Binding DisplayFlag}" Margin="20,0,0,0" FontSize="25"></CheckBox>
+                                <Button x:Name="deleteFavoriteAreaButton" Content="{StaticResource deleteFavoriteAreaButton}" FontSize="25" Margin="20,0,20,0"></Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+            
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Height="100" Width="Auto" VerticalAlignment="Top">
+                <ComboBox x:Name="prefsComboBox" Width="200" ItemsSource="{Binding}" SelectionChanged="prefsComboBox_SelectionChanged" VerticalAlignment="Center" FontSize="25">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding PrefName}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox x:Name="areasComboBox" Width="200" ItemsSource="{Binding}" VerticalAlignment="Center" FontSize="25">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding AreaName}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button x:Name="addFavoriteAreaButton" Content="{StaticResource addFavoriteAreaButton}" VerticalAlignment="Center" FontSize="25" Margin="10,0,0,0"></Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

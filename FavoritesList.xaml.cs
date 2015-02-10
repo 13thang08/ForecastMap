@@ -67,13 +67,14 @@ namespace ForecastMap
         /// session. The state will be null the first time a page is visited.</param>
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            // test code
-            //var prefsInfo = await Logic.PrefectureInfoLoader.getPrefInfo();
-            //ObservableCollection<pref_infoPref> prefs = new ObservableCollection<pref_infoPref>(prefsInfo.pref);
-            //prefsComboBox.DataContext = prefs;
             var prefsInfo = await Logics.PrefsInfoLoader.getPrefsInfo();
             ObservableCollection<Pref> prefs = new ObservableCollection<Pref>(prefsInfo.Prefs);
             prefsComboBox.DataContext = prefs;
+
+            var favoriteAreas = FavoritesAreasView.getFavoriteAreasView();
+            ObservableCollection<FavoritesAreasView> favoriteAreasCollection = new ObservableCollection<FavoritesAreasView>(favoriteAreas);
+            favoriteAreaListView.DataContext = favoriteAreasCollection;
+            
         }
 
         /// <summary>
