@@ -66,12 +66,27 @@ namespace ForecastMap.Logics
                         {
                             db.Insert(forecast);
                         }
+
+                        
                     }
                     catch
                     {
                         Debug.WriteLine("Can't update data");
                         return false;
                     }
+                }
+            }
+
+            using (var db = new SQLite.SQLiteConnection(App.DBName))
+            {
+                try
+                {
+                    db.Execute("DELETE FROM Forecast WHERE AreaId = ? AND DateForecast < ?", areaId, DateTime.Today);
+                }
+                catch
+                {
+                    Debug.WriteLine("Error when try to run query");
+                    return false;
                 }
             }
 
@@ -192,6 +207,7 @@ namespace ForecastMap.Logics
                 try
                 {
                     db.Delete(favoriteArea);
+                    db.Execute("DELETE FROM Forecast WHERE AreaId = ?", areaId);
                     return true;
                 }
                 catch
