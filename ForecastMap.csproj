@@ -112,6 +112,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
@@ -130,6 +131,7 @@
     </Compile>
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
+    <Compile Include="ViewMode.cs" />
     <Compile Include="ViewModels\ForecastItem.cs" />
   </ItemGroup>
   <ItemGroup>

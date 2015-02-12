@@ -31,14 +31,7 @@ namespace ForecastMap
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
         public static string addedFavoriteArea = "この地域は既にお気に入りに追加しました";
-        public static string editText = "編集";
-        public static string doneText = "完了";
-
-        public static readonly int EDIT = 0;
-        public static readonly int SELECT = 1;
-
-        private int mode = SELECT;
-
+        
         ObservableCollection<Area> areas;
         ObservableCollection<Pref> prefs;
         ObservableCollection<FavoritesAreasView> favoriteAreasCollection;
@@ -88,7 +81,6 @@ namespace ForecastMap
             var favoriteAreas = FavoritesAreasView.getFavoriteAreasView();
             favoriteAreasCollection = new ObservableCollection<FavoritesAreasView>(favoriteAreas);
             favoriteAreaListView.DataContext = favoriteAreasCollection;
-            setMode();
         }
 
         /// <summary>
@@ -152,7 +144,6 @@ namespace ForecastMap
                 var favoriteAreas = FavoritesAreasView.getFavoriteAreasView();
                 favoriteAreasCollection = new ObservableCollection<FavoritesAreasView>(favoriteAreas);
                 favoriteAreaListView.DataContext = favoriteAreasCollection;
-                setMode();
             }
             else
             {
@@ -181,79 +172,15 @@ namespace ForecastMap
 
         private void switchMode_Click(object sender, RoutedEventArgs e)
         {
-            if (mode == EDIT) mode = SELECT;
-            else mode = EDIT;
-            setMode();
-        }
-
-        private void setMode()
-        {
-            //編集画面
-            if (mode == EDIT)
+            ViewMode viewMode = (ViewMode) Resources["viewMode"];
+            if (viewMode != null)
             {
-                switchMode.Content = doneText;
-                foreach (var button in FindVisualChildren<Button>(this))
-                {
-                    if (button.Name == "favoriteAreaNameButton")
-                    {
-                        //地域ボタンを無効化
-                        button.IsEnabled = false;
-                    }
-                }
-                foreach (var stackpanel in FindVisualChildren<StackPanel>(this))
-                {
-                    if (stackpanel.Name == "editStackPanel")
-                    {
-                        //チェックボタン、削除ボタン非表示
-                        stackpanel.Visibility = Visibility.Visible;
-                    }
-                }
-
-                areaSelectionStackPanel.Visibility = Visibility.Visible;
-            }
-            // 選択画面
-            if (mode == SELECT)
-            {
-                switchMode.Content = editText;
-                foreach (var button in FindVisualChildren<Button>(this))
-                {
-                    if (button.Name == "favoriteAreaNameButton")
-                    {
-                        Debug.WriteLine("I'm here!");
-                        button.IsEnabled = true;
-                    }
-                }
-                foreach (var stackpanel in FindVisualChildren<StackPanel>(this))
-                {
-                    if (stackpanel.Name == "editStackPanel")
-                    {
-                        stackpanel.Visibility = Visibility.Collapsed;
-                    }
-                }
-                areaSelectionStackPanel.Visibility = Visibility.Collapsed;
+                if (viewMode.Mode == ViewMode.EDIT) viewMode.Mode = ViewMode.SELECT;
+                else viewMode.Mode = ViewMode.EDIT;
             }
         }
 
-        public IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
-        {
-            if (depObj != null)
-            {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-                {
-                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-                    if (child != null && child is T)
-                    {
-                        Debug.WriteLine("2");
-                        yield return (T)child;
-                    }
-
-                    foreach (T childOfChild in FindVisualChildren<T>(child))
-                    {
-                        yield return childOfChild;
-                    }
-                }
-            }
-        }
+        
 
     }
 
