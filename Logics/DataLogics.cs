@@ -21,7 +21,15 @@ namespace ForecastMap.Logics
         {
             int prefId = areaId / 100;
             int areaIndex = areaId % 100;
-            string URL = forecastUrl + prefId + ".xml";
+            string URL;
+            if (prefId < 10)
+            {
+                URL = forecastUrl + "0" + prefId + ".xml";
+            }
+            else
+            {
+                URL = forecastUrl + prefId + ".xml";
+            }
             weatherforecast forecastInfoByPref = await LoadAsync(URL);
 
             weatherforecastPrefAreaInfo[] areaForecastByDate = forecastInfoByPref.pref.area[areaIndex].info;
@@ -97,7 +105,15 @@ namespace ForecastMap.Logics
         {
             int prefId = areaId / 100;
             int areaIndex = areaId % 100;
-            string URL = forecastUrl + prefId + ".xml";
+            string URL;
+            if (prefId < 10)
+            {
+                URL = forecastUrl + "0" + prefId + ".xml";
+            }
+            else
+            {
+                URL = forecastUrl + prefId + ".xml";
+            }
             weatherforecast forecastInfoByPref = await LoadAsync(URL);
 
             weatherforecastPrefAreaInfo[] areaForecastByDate = forecastInfoByPref.pref.area[areaIndex].info;

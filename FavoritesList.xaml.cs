@@ -15,6 +15,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
 using ForecastMap.DataModels;
+using Windows.UI.Popups;
+using System.Diagnostics;
+using System.ComponentModel;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
 namespace ForecastMap
@@ -27,7 +30,18 @@ namespace ForecastMap
 
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
+        public static string addedFavoriteArea = "この地域は既にお気に入りに追加しました";
+        public static string editText = "編集";
+        public static string doneText = "完了";
 
+        public static readonly int EDIT = 0;
+        public static readonly int SELECT = 1;
+
+        private int mode = SELECT;
+
+        ObservableCollection<Area> areas;
+        ObservableCollection<Pref> prefs;
+        ObservableCollection<FavoritesAreasView> favoriteAreasCollection;
         /// <summary>
         /// This can be changed to a strongly typed view model.
         /// </summary>
@@ -68,13 +82,13 @@ namespace ForecastMap
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             var prefsInfo = await Logics.PrefsInfoLoader.getPrefsInfo();
-            ObservableCollection<Pref> prefs = new ObservableCollection<Pref>(prefsInfo.Prefs);
+            prefs = new ObservableCollection<Pref>(prefsInfo.Prefs);
             prefsComboBox.DataContext = prefs;
 
             var favoriteAreas = FavoritesAreasView.getFavoriteAreasView();
-            ObservableCollection<FavoritesAreasView> favoriteAreasCollection = new ObservableCollection<FavoritesAreasView>(favoriteAreas);
+            favoriteAreasCollection = new ObservableCollection<FavoritesAreasView>(favoriteAreas);
             favoriteAreaListView.DataContext = favoriteAreasCollection;
-            
+            setMode();
         }
 
         /// <summary>
@@ -119,8 +133,129 @@ namespace ForecastMap
             //areasComboBox.DataContext = areas;
 
             Pref pref = (Pref)prefsComboBox.SelectedItem;
-            ObservableCollection<Area> areas = new ObservableCollection<Area>(pref.Areas);
+            areas = new ObservableCollection<Area>(pref.Areas);
             areasComboBox.DataContext = areas;
         }
+
+        private async void addFavoriteAreaButton_Click(object sender, RoutedEventArgs e)
+        {
+            var area = (Area)areasComboBox.SelectedItem;
+            if (area == null)
+            {
+                return;
+            }
+            Debug.WriteLine(area.AreaId);
+            bool result = await Logics.DataLogics.addFavorite(area.AreaId);
+
+            if (result)
+            {
+                var favoriteAreas = FavoritesAreasView.getFavoriteAreasView();
+                favoriteAreasCollection = new ObservableCollection<FavoritesAreasView>(favoriteAreas);
+                favoriteAreaListView.DataContext = favoriteAreasCollection;
+                setMode();
+            }
+            else
+            {
+                // aleart dialog
+                var messageDialog = new MessageDialog(addedFavoriteArea);
+                await messageDialog.ShowAsync();
+            }
+        }
+
+        private void deleteFavoriteAreaButton_Click(object sender, RoutedEventArgs e)
+        {
+            FavoritesAreasView deletedArea = (sender as Button).DataContext as FavoritesAreasView;
+            if (FavoritesAreasView.deleteFavoriteArea(deletedArea.AreaId))
+            {
+                favoriteAreasCollection.Remove(deletedArea);
+            }
+        }
+
+        private void displayFlagCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            var checkbox = sender as CheckBox;
+            FavoritesAreasView changedArea = checkbox.DataContext as FavoritesAreasView;
+            changedArea.DisplayFlag = (bool) checkbox.IsChecked; ;
+            FavoritesAreasView.updateFavoriteArea(changedArea);
+        }
+
+        private void switchMode_Click(object sender, RoutedEventArgs e)
+        {
+            if (mode == EDIT) mode = SELECT;
+            else mode = EDIT;
+            setMode();
+        }
+
+        private void setMode()
+        {
+            //編集画面
+            if (mode == EDIT)
+            {
+                switchMode.Content = doneText;
+                foreach (var button in FindVisualChildren<Button>(this))
+                {
+                    if (button.Name == "favoriteAreaNameButton")
+                    {
+                        //地域ボタンを無効化
+                        button.IsEnabled = false;
+                    }
+                }
+                foreach (var stackpanel in FindVisualChildren<StackPanel>(this))
+                {
+                    if (stackpanel.Name == "editStackPanel")
+                    {
+                        //チェックボタン、削除ボタン非表示
+                        stackpanel.Visibility = Visibility.Visible;
+                    }
+                }
+
+                areaSelectionStackPanel.Visibility = Visibility.Visible;
+            }
+            // 選択画面
+            if (mode == SELECT)
+            {
+                switchMode.Content = editText;
+                foreach (var button in FindVisualChildren<Button>(this))
+                {
+                    if (button.Name == "favoriteAreaNameButton")
+                    {
+                        Debug.WriteLine("I'm here!");
+                        button.IsEnabled = true;
+                    }
+                }
+                foreach (var stackpanel in FindVisualChildren<StackPanel>(this))
+                {
+                    if (stackpanel.Name == "editStackPanel")
+                    {
+                        stackpanel.Visibility = Visibility.Collapsed;
+                    }
+                }
+                areaSelectionStackPanel.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        public IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        Debug.WriteLine("2");
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
+
     }
+
+
 }
