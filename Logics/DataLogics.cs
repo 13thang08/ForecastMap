@@ -181,6 +181,23 @@ namespace ForecastMap.Logics
             }
         }
 
+        public static List<Forecast> getNextForecasts(int areaId)
+        {
+            using (var db = new SQLite.SQLiteConnection(App.DBName))
+            {
+                try
+                {
+                    var records = db.Table<Forecast>().Where(c => (c.AreaId == areaId && c.DateForecast > DateTime.Today)).ToList();
+                    return records;
+                }
+                catch
+                {
+                    Debug.WriteLine("Can't get next forecast");
+                    return new List<Forecast>();
+                }
+            }
+        }
+
         public static Forecast getTodayForecast(int areaId)
         {
             using (var db = new SQLite.SQLiteConnection(App.DBName))

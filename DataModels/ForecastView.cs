@@ -26,6 +26,26 @@ namespace ForecastMap.DataModels
             if (todayForecast != null)
             {
                 ForecastView todayForecastView = copyFromForecast(todayForecast);
+
+                int currentTime = DateTime.Now.TimeOfDay.Hours;
+
+                if (0 <= currentTime && currentTime < 6)
+                {
+                    todayForecastView.ChangeOfRain = todayForecast.ChangeOfRain1;
+                }
+                if (6 <= currentTime && currentTime < 12)
+                {
+                    todayForecastView.ChangeOfRain = todayForecast.ChangeOfRain2;
+                }
+                if (12 <= currentTime && currentTime < 18)
+                {
+                    todayForecastView.ChangeOfRain = todayForecast.ChangeOfRain3;
+                }
+                if (18 <= currentTime && currentTime < 24)
+                {
+                    todayForecastView.ChangeOfRain = todayForecast.ChangeOfRain4;
+                }
+
                 return todayForecastView;
             }
             else
@@ -51,29 +71,23 @@ namespace ForecastMap.DataModels
             forecastView.ForecastImage = forecast.ForecastImage;
             forecastView.MaxTemp = forecast.MaxTemp;
             forecastView.MinTemp = forecast.MinTemp;
-            if (forecastView.DateForecast.Equals(DateTime.Today))
-            {
-                int currentTime = DateTime.Now.TimeOfDay.Hours;
-
-                if (0 <= currentTime && currentTime < 6)
-                {
-                    forecastView.ChangeOfRain = forecast.ChangeOfRain1;
-                }
-                if (6 <= currentTime && currentTime < 12)
-                {
-                    forecastView.ChangeOfRain = forecast.ChangeOfRain2;
-                }
-                if (12 <= currentTime && currentTime < 18)
-                {
-                    forecastView.ChangeOfRain = forecast.ChangeOfRain3;
-                }
-                if (18 <= currentTime && currentTime < 24)
-                {
-                    forecastView.ChangeOfRain = forecast.ChangeOfRain4;
-                }
-            }
+            
 
             return forecastView;
+        }
+
+        public static List<ForecastView> getNextForecastsView(int areaId)
+        {
+            List<ForecastView> nextForecastsView = new List<ForecastView>();
+            List<Forecast> nextForecasts = Logics.DataLogics.getNextForecasts(areaId);
+
+            foreach (var forecast in nextForecasts)
+            {
+                var forecastView = copyFromForecast(forecast);
+                nextForecastsView.Add(forecastView);
+            }
+
+            return nextForecastsView;
         }
 
         public static List<ForecastView> getForecastViewItems(int areaId)

@@ -79,6 +79,16 @@ namespace ForecastMap
                     db.CreateTable<DataModels.Forecast>();
                 }
 
+                //// test get next forecasts
+                //List<ForecastView> forecastViewList = ForecastView.getNextForecastsView(1801);
+                //foreach (var forecastView in forecastViewList)
+                //{
+                //    Debug.WriteLine(forecastView.Name);
+                //    Debug.WriteLine(forecastView.MinTemp);
+                //    Debug.WriteLine(forecastView.ForecastInfo);
+                    
+                //}
+
                 //// test get today forecast
                 //await Logics.DataLogics.updateForecastData(1801);
                 //ForecastView todayForecastView = ForecastView.getTodayForecastView(1801);
