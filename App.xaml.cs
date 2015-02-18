@@ -79,6 +79,26 @@ namespace ForecastMap
                     db.CreateTable<DataModels.Forecast>();
                 }
 
+                //// test get today forecast
+                //await Logics.DataLogics.updateForecastData(1801);
+                //ForecastView todayForecastView = ForecastView.getTodayForecastView(1801);
+                //if (todayForecastView != null)
+                //{
+                //    Debug.WriteLine(todayForecastView.AreaId);
+                //    Debug.WriteLine(todayForecastView.Name);
+
+                //    Debug.WriteLine(todayForecastView.ForecastInfo);
+
+                //    Debug.WriteLine(todayForecastView.MaxTemp);
+                //    Debug.WriteLine(todayForecastView.ChangeOfRain);
+
+                //}
+                //else
+                //{
+                //    Debug.WriteLine("Error");
+                //}
+
+
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }

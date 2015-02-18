@@ -101,6 +101,8 @@ namespace ForecastMap.Logics
             return true;
         }
 
+
+
         public static async Task<bool> addFavorite(int areaId)
         {
             int prefId = areaId / 100;
@@ -174,6 +176,23 @@ namespace ForecastMap.Logics
                 catch
                 {
                     Debug.WriteLine("Can't retrieve data");
+                    return null;
+                }
+            }
+        }
+
+        public static Forecast getTodayForecast(int areaId)
+        {
+            using (var db = new SQLite.SQLiteConnection(App.DBName))
+            {
+                try
+                {
+                    var todayForecast = db.Table<Forecast>().Where(c => (c.AreaId == areaId && c.DateForecast == DateTime.Today)).SingleOrDefault();
+                    return todayForecast;
+                }
+                catch
+                {
+                    Debug.WriteLine("Can't get today forecast");
                     return null;
                 }
             }
