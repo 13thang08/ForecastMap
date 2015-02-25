@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Collections.ObjectModel;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -65,10 +66,17 @@ namespace ForecastMap
         /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
         /// a dictionary of state preserved by this page during an earlier
         /// session. The state will be null the first time a page is visited.</param>
-        private void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            ForecastView todayForecastView = ForecastView.getTodayForecastView(1801);
+            int areadid = 1801;
+            await Logics.DataLogics.updateForecastData(areadid);
+            ForecastView todayForecastView = ForecastView.getTodayForecastView(areadid);
             this.DefaultViewModel["TodayForecastView"] = todayForecastView;
+
+            ObservableCollection<ForecastView> nextForecastsView = new ObservableCollection<ForecastView>(ForecastView.getNextForecastsView(areadid));
+            this.DefaultViewModel["NextForecastsView"] = nextForecastsView;
+           
+
         }
 
         /// <summary>

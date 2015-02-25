@@ -64,7 +64,13 @@
                         <TextBlock x:Name="rainfallchangeTextBlock" FontSize="30" Text="{Binding TodayForecastView.ChangeOfRain}"></TextBlock>
                     </StackPanel>
                 </StackPanel>
-                
+                <ListView ItemsSource="{Binding NextForecastsView}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ForecastInfo}"></TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
         </Grid>
     </Grid>

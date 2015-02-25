@@ -19,6 +19,10 @@ namespace ForecastMap.Logics
         public static string forecastUrl = "http://www.drk7.jp/weather/xml/";
         public static async Task<bool> updateForecastData(int areaId)
         {
+            // if not favorite area, then add
+            bool addStatus = await addFavorite(areaId);
+            if (!addStatus) return false;
+
             int prefId = areaId / 100;
             int areaIndex = areaId % 100;
             string URL;
@@ -30,6 +34,7 @@ namespace ForecastMap.Logics
             {
                 URL = forecastUrl + prefId + ".xml";
             }
+
             weatherforecast forecastInfoByPref = await LoadAsync(URL);
 
             weatherforecastPrefAreaInfo[] areaForecastByDate = forecastInfoByPref.pref.area[areaIndex].info;
@@ -130,11 +135,18 @@ namespace ForecastMap.Logics
 
             using (var db = new SQLite.SQLiteConnection(App.DBName))
             {
-                bool ret = false;
+                // if is favarite area, return true
+                var existedArea = db.Table<FavoritesAreas>().Where(c => (c.AreaId == favoriteArea.AreaId)).SingleOrDefault();
+                if (existedArea != null)
+                {
+                    Debug.WriteLine("Info: existing favarite area");
+                    return true;
+                }
+
                 try
                 {
                     db.Insert(favoriteArea);
-                    ret = await updateForecastData(areaId);
+                    return true;
                 }
                 catch
                 {
@@ -142,7 +154,6 @@ namespace ForecastMap.Logics
                     return false;
                 }
 
-                return ret;
             }
 
         }
