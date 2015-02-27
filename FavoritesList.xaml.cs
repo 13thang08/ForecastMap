@@ -180,6 +180,12 @@ namespace ForecastMap
             }
         }
 
+        private void favoriteAreaNameButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedArea = (sender as Button).DataContext as FavoritesAreasView;
+            this.Frame.Navigate(typeof(DetailForecast), selectedArea.AreaId);
+        }
+
         
 
     }

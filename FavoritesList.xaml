@@ -61,7 +61,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button x:Name="favoriteAreaNameButton" Content="{Binding Name}" Height="70" Width="400" FontSize="25" IsEnabled="{Binding Source={StaticResource viewMode}, Path=SelectMode}"></Button>
+                                <Button x:Name="favoriteAreaNameButton" Content="{Binding Name}" Height="70" Width="400" FontSize="25" IsEnabled="{Binding Source={StaticResource viewMode}, Path=SelectMode}" Click="favoriteAreaNameButton_Click"></Button>
                                 <StackPanel Orientation="Horizontal" x:Name="editStackPanel" Visibility="{Binding Source={StaticResource viewMode}, Path=EditMode, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <CheckBox x:Name="displayFlagCheckBox" IsChecked="{Binding DisplayFlag}" Margin="20,0,0,0" FontSize="25" Click="displayFlagCheckBox_Click"></CheckBox>
                                     <Button x:Name="deleteFavoriteAreaButton" Content="{StaticResource deleteFavoriteAreaButton}" FontSize="25" Margin="20,0,20,0" Click="deleteFavoriteAreaButton_Click"></Button>
